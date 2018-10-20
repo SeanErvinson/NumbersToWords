@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.seanervinson.numberstowords.NumberUtilities.NumberConversion;
+
 import java.util.Stack;
 
 public class MainActivity extends AppCompatActivity {
@@ -32,70 +34,19 @@ public class MainActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                int tensCounter = 1;
-                int hundredCounter = 2;
-                int powerTensCounter = 3;
-                int counter = -1;
                 String currentNumber = charSequence.toString();
                 String resultWord;
-                Stack<String> supposedWords = new Stack<>();
+                if (currentNumber.length() <= 0) {
+                    mTextResult.setText("");
+                    return;
+                }
                 try {
-                    for (int index = currentNumber.length() - 1; index >= 0; index--) {
-                        int currentValue = Character.getNumericValue(currentNumber.charAt(index));
-                        if(currentValue == 0)
-                            counter++;
-                        if (currentNumber.length() - 1 - index == hundredCounter) {
-                            if (currentValue != 0)
-                                supposedWords.push(Number.TENS[0]);
-                            hundredCounter += 3;
-                        }
-                        if (currentNumber.length() - 1 - index == tensCounter) {
-                            if (currentValue == 1) {
-                                if (!supposedWords.isEmpty())
-                                    supposedWords.pop();
-                                int onesIndex = Character.getNumericValue(currentNumber.charAt(index + 1));
-                                if (onesIndex >= 0) {
-                                    String teenNumber = Number.TEENS[onesIndex];
-                                    supposedWords.push(teenNumber);
-                                }
-                            } else {
-                                if (currentValue >= 0)
-                                    supposedWords.push(Number.TYS[currentValue]);
-                            }
-                            tensCounter += 3;
-                        } else {
-                            if (currentValue >= 0) {
-                                if (currentNumber.length() - 1 - index == powerTensCounter) {
-                                    if(counter % 3 == 0){
-                                        supposedWords.pop();
-                                        supposedWords.pop();
-                                        supposedWords.pop();
-                                    }
-                                    counter = 0;
-                                    supposedWords.push(Number.TENS[powerTensCounter / 3]);
-                                    powerTensCounter += 3;
-                                }
-                                supposedWords.push(Number.ONES[currentValue]);
-                            }
-                        }
-                    }
+                    resultWord = NumberConversion.convertNumber(Long.valueOf(currentNumber));
                 } catch (NumberFormatException ex) {
                     return;
                 }
-
-
-                //mTextResult.setText(String.join("", supposedWords.toArray(new String[supposedWords.size()])));
-                resultWord = getFormattedWord(supposedWords);
                 mTextResult.setText(resultWord);
 
-            }
-
-            private String getFormattedWord(Stack<String> words) {
-                StringBuilder sb = new StringBuilder();
-                while (!words.isEmpty()) {
-                    sb.append(words.pop());
-                }
-                return sb.toString();
             }
 
             @Override
@@ -103,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 
     private void initializeWidget() {
         mTextResult = findViewById(R.id.text_result);
