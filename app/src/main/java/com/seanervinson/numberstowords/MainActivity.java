@@ -6,14 +6,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.seanervinson.numberstowords.NumberUtilities.Cheque;
 import com.seanervinson.numberstowords.NumberUtilities.NumberConversion;
 
-import java.util.Stack;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,6 +27,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initializeWidget();
 
+        mSwitchCheque.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            String currentText;
+
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if (isChecked) {
+                    currentText = mTextResult.getText().toString();
+                    mTextResult.setText(Cheque.toChequeFormat(currentText));
+                } else
+                    mTextResult.setText(currentText);
+            }
+        });
         mInputNumber.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -37,20 +49,19 @@ public class MainActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 String valueText = charSequence.toString();
                 String resultWord;
-                boolean chequeMode = mSwitchCheque.isChecked();
                 if (valueText.length() <= 0) {
                     resultWord = "";
-                }
-                else if(valueText.length() > 19){
+                } else if (valueText.length() > 19) {
                     resultWord = getResources().getString(R.string.error_too_large);
-                }
-                else{
+                } else {
                     try {
-                        resultWord = NumberConversion.parseWord(Long.valueOf(valueText), chequeMode);
+                        resultWord = NumberConversion.parseWord(Long.valueOf(valueText));
                     } catch (NumberFormatException ex) {
                         return;
                     }
                 }
+                if (mSwitchCheque.isChecked())
+                    resultWord = Cheque.toChequeFormat(resultWord);
                 mTextResult.setText(resultWord);
             }
 
