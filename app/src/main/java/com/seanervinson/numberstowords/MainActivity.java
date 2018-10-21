@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -34,19 +35,23 @@ public class MainActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                String currentNumber = charSequence.toString();
+                String valueText = charSequence.toString();
                 String resultWord;
-                if (currentNumber.length() <= 0) {
-                    mTextResult.setText("");
-                    return;
+                boolean chequeMode = mSwitchCheque.isChecked();
+                if (valueText.length() <= 0) {
+                    resultWord = "";
                 }
-                try {
-                    resultWord = NumberConversion.convertNumber(Long.valueOf(currentNumber));
-                } catch (NumberFormatException ex) {
-                    return;
+                else if(valueText.length() > 19){
+                    resultWord = getResources().getString(R.string.error_too_large);
+                }
+                else{
+                    try {
+                        resultWord = NumberConversion.parseWord(Long.valueOf(valueText), chequeMode);
+                    } catch (NumberFormatException ex) {
+                        return;
+                    }
                 }
                 mTextResult.setText(resultWord);
-
             }
 
             @Override
