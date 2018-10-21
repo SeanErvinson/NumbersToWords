@@ -2,6 +2,9 @@ package com.seanervinson.numberstowords.NumberUtilities;
 
 public class Cheque {
     public static String toChequeFormat(String content) {
+        if(content.length() <= 0){
+            return null;
+        }
         StringBuilder sb = new StringBuilder();
         String[] words = content.trim().split(" ");
         for (int i = 0; i < words.length; i++) {
