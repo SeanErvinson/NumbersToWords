@@ -8,11 +8,8 @@ import static com.seanervinson.numberstowords.NumberUtilities.EnglishNumerals.TE
 import static com.seanervinson.numberstowords.NumberUtilities.EnglishNumerals.TYS;
 
 public class NumberConversion {
-    private static boolean mChequeMode;
 
-    public static String parseWord(long value, boolean chequeMode) {
-        mChequeMode = chequeMode;
-        String result;
+    public static String parseWord(long value) {
         String mask = getMask(value);
         DecimalFormat df = new DecimalFormat(mask);
         String valueText = df.format(value);
@@ -23,11 +20,7 @@ public class NumberConversion {
             if (thirdOctet != 0)
                 sb.append(LARGE_NUMBERS[(valueText.length() - j) / 3]).append(" ");
         }
-        result = sb.toString();
-        if(chequeMode){
-            result = result.trim() + " Only";
-        }
-        return result;
+        return sb.toString();
     }
 
     private static String getMask(long value) {
@@ -56,10 +49,7 @@ public class NumberConversion {
         }
         if (value == 0)
             return getFormattedWord(words).trim();
-        if(mChequeMode)
-            words.push(String.format("%s Hundred And", TENS[(int) value]));
-        else
-            words.push(String.format("%s Hundred", TENS[(int) value]));
+        words.push(String.format("%s Hundred", TENS[(int) value]));
         return getFormattedWord(words).trim();
     }
 
