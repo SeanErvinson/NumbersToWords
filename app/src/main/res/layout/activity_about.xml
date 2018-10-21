@@ -5,12 +5,19 @@
     android:layout_height="match_parent"
     tools:context=".AboutActivity"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="@dimen/StandardPadding">
+
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="If you enjoyed the app. Follow me on:"/>
+        android:textSize="@dimen/LargeTextSize"
+        android:text="Sean Ervinson"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/credit"/>
 
     <ListView
         android:id="@+id/list_social_media_links"
