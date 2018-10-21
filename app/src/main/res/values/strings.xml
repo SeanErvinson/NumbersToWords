@@ -2,4 +2,5 @@
     <string name="app_name">Numbers To Words</string>
     <string name="cheque_mode">Cheque Mode</string>
     <string name="input_number">Enter Number</string>
+    <string name="error_too_large">Uh oh! Number is too large.</string>
 </resources>
