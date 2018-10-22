@@ -3,6 +3,10 @@
     <dimen name="StandardPadding">16dp</dimen>
     <dimen name="StandardSmallPadding">8dp</dimen>
     <dimen name="StandardXSmallPadding">4dp</dimen>
+    <dimen name="XLargePadding">32dp</dimen>
+    <dimen name="XSmallTextSize">10sp</dimen>
+    <dimen name="SmallTextSize">14sp</dimen>
     <dimen name="NormalTextSize">16sp</dimen>
     <dimen name="LargeTextSize">20sp</dimen>
+    <dimen name="IconSize">28dp</dimen>
 </resources>
