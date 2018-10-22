@@ -6,4 +6,12 @@
     <string name="about">About</string>
     <string name="settings">Settings</string>
     <string name="credit">If you enjoyed the app and wants to see more.\nFollow me on:</string>
+    <string name="created_by">created by: Sean Ervinson</string>
+    <string name="social_github">/SeanErvinson</string>
+    <string name="social_linkedin">/seanervinson</string>
+    <string name="social_twitter">\@ASean___</string>
+    <string name="application_logo">Application Logo</string>
+    <string name="github_image">Github Image</string>
+    <string name="linkedin_image">Linkedin Image</string>
+    <string name="twitter_image">Twitter Image</string>
 </resources>

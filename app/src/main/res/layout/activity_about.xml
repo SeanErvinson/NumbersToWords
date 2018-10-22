@@ -10,17 +10,18 @@
 
     <LinearLayout
         android:id="@+id/linear_layout_info"
-        android:layout_centerHorizontal="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/StandardPadding"
         android:orientation="vertical">
 
         <ImageView
-            android:layout_gravity="center"
             android:layout_width="90dp"
             android:layout_height="90dp"
-            android:src="@drawable/ic_numbertoword"/>
+            android:layout_gravity="center"
+            android:contentDescription="@string/application_logo"
+            android:src="@drawable/ic_numbertoword" />
 
         <TextView
             android:layout_width="match_parent"
@@ -29,99 +30,74 @@
             android:gravity="center"
             android:text="@string/app_name"
             android:textSize="@dimen/LargeTextSize" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginBottom="@dimen/StandardSmallPadding"
-            android:text="created by: Sean Ervinson"
-            android:textSize="@dimen/SmallTextSize"/>
 
         <TextView
-            android:textSize="@dimen/NormalTextSize"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/StandardSmallPadding"
+            android:gravity="center"
+            android:text="@string/created_by"
+            android:textSize="@dimen/SmallTextSize" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/credit"
             android:textAlignment="center"
-            android:text="@string/credit" />
+            android:textSize="@dimen/NormalTextSize" />
 
     </LinearLayout>
+
     <RelativeLayout
         android:id="@+id/relative_layout_links"
-        android:layout_below="@id/linear_layout_info"
-        android:layout_centerInParent="true"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linear_layout_info"
+        android:layout_centerInParent="true">
 
-        <LinearLayout
-            android:id="@+id/linear_layout_github"
+
+        <TextView
+            android:id="@+id/text_view_github"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="@dimen/StandardSmallPadding">
+            android:layout_marginStart="@dimen/StandardSmallPadding"
+            android:drawablePadding="@dimen/StandardSmallPadding"
+            android:drawableStart="@drawable/ic_github"
+            android:padding="5dp"
+            android:text="@string/social_github"
+            android:textSize="@dimen/NormalTextSize" />
 
-            <ImageView
-                android:layout_width="@dimen/IconSize"
-                android:layout_height="@dimen/IconSize"
-                android:src="@drawable/ic_github"
-                android:tint="@color/iconColor" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="@dimen/StandardSmallPadding"
-                android:text="/SeanErvinson"
-                android:textSize="@dimen/NormalTextSize" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linear_layout_linkedin"
+        <TextView
+            android:id="@+id/text_view_linkedin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/linear_layout_github"
-            android:layout_alignStart="@id/linear_layout_github"
+            android:layout_alignParentStart="true"
+            android:layout_below="@id/text_view_github"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="@dimen/StandardSmallPadding">
-
-            <ImageView
-                android:layout_width="@dimen/IconSize"
-                android:layout_height="@dimen/IconSize"
-                android:src="@drawable/ic_linkedin"
-                android:tint="@color/iconColor" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="@dimen/StandardSmallPadding"
-                android:text="/seanervinson"
-                android:textSize="@dimen/NormalTextSize" />
-        </LinearLayout>
+            android:layout_marginStart="@dimen/StandardSmallPadding"
+            android:drawablePadding="@dimen/StandardSmallPadding"
+            android:drawableStart="@drawable/ic_linkedin"
+            android:padding="5dp"
+            android:text="@string/social_linkedin"
+            android:textSize="@dimen/NormalTextSize" />
 
 
-        <LinearLayout
-            android:id="@+id/linear_layout_twitter"
+        <TextView
+            android:id="@+id/text_view_twitter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@id/linear_layout_linkedin"
-            android:layout_below="@id/linear_layout_linkedin"
-            android:layout_centerHorizontal="true">
-
-            <ImageView
-                android:layout_width="@dimen/IconSize"
-                android:layout_height="@dimen/IconSize"
-                android:src="@drawable/ic_twitter"
-                android:tint="@color/iconColor" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="@dimen/StandardSmallPadding"
-                android:text="\@ASean___"
-                android:textSize="@dimen/NormalTextSize" />
-        </LinearLayout>
-
+            android:layout_alignParentStart="true"
+            android:layout_below="@id/text_view_linkedin"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="@dimen/StandardSmallPadding"
+            android:drawablePadding="@dimen/StandardSmallPadding"
+            android:drawableStart="@drawable/ic_twitter"
+            android:padding="5dp"
+            android:text="@string/social_twitter"
+            android:textSize="@dimen/NormalTextSize" />
 
     </RelativeLayout>
 </RelativeLayout>
