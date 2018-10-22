@@ -32,15 +32,15 @@ public class MainActivity extends AppCompatActivity {
         initializeWidget();
 
         mSwitchCheque.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            String currentText;
-
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (isChecked) {
-                    currentText = mTextResult.getText().toString();
+                    String currentText = mTextResult.getText().toString();
                     mTextResult.setText(Cheque.toChequeFormat(currentText));
-                } else
-                    mTextResult.setText(currentText);
+                } else {
+                    String currentText = mTextResult.getText().toString();
+                    mTextResult.setText(Cheque.toNormalFormat(currentText));
+                }
             }
         });
         mInputNumber.addTextChangedListener(new TextWatcher() {
