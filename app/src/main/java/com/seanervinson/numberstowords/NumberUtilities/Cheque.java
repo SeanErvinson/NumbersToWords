@@ -2,7 +2,7 @@ package com.seanervinson.numberstowords.NumberUtilities;
 
 public class Cheque {
     public static String toChequeFormat(String content) {
-        if(content.length() <= 0){
+        if (content.length() <= 0) {
             return null;
         }
         StringBuilder sb = new StringBuilder();
@@ -15,8 +15,9 @@ public class Cheque {
         }
         return sb.append("Only").toString();
     }
+
     public static String toNormalFormat(String content) {
-        if(content.length() <= 0){
+        if (content.length() <= 0) {
             return null;
         }
         StringBuilder sb = new StringBuilder();
