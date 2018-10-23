@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="StandardPadding">16dp</dimen>
+    <dimen name="XStandardPadding">12dp</dimen>
     <dimen name="StandardSmallPadding">8dp</dimen>
     <dimen name="StandardXSmallPadding">4dp</dimen>
     <dimen name="XLargePadding">32dp</dimen>

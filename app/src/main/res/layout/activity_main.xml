@@ -39,16 +39,15 @@
         android:id="@+id/input_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingVertical="@dimen/StandardSmallPadding"
         android:layout_marginBottom="@dimen/StandardSmallPadding"
         android:background="@drawable/custom_edit_text"
         android:textSize="@dimen/LargeTextSize"
         android:hint="@string/input_number"
         android:inputType="number"
-        android:paddingBottom="@dimen/StandardSmallPadding"
+        android:paddingBottom="@dimen/XStandardPadding"
         android:paddingLeft="@dimen/StandardPadding"
         android:paddingRight="@dimen/StandardPadding"
-        android:paddingTop="@dimen/StandardSmallPadding"
+        android:paddingTop="@dimen/XStandardPadding"
         android:textAlignment="textEnd" />
 
     <TextView
