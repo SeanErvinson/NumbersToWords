@@ -14,4 +14,6 @@
     <string name="github_image">Github Image</string>
     <string name="linkedin_image">Linkedin Image</string>
     <string name="twitter_image">Twitter Image</string>
+    <string name="number">Number:</string>
+    <string name="result">Result:</string>
 </resources>

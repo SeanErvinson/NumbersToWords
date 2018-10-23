@@ -28,17 +28,35 @@
 
     </RelativeLayout>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/StandardSmallPadding"
+        android:text="@string/number"
+        android:textStyle="bold" />
+
     <EditText
         android:id="@+id/input_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingVertical="@dimen/StandardSmallPadding"
         android:layout_marginBottom="@dimen/StandardSmallPadding"
+        android:background="@drawable/custom_edit_text"
+        android:textSize="@dimen/LargeTextSize"
         android:hint="@string/input_number"
         android:inputType="number"
         android:paddingBottom="@dimen/StandardSmallPadding"
         android:paddingLeft="@dimen/StandardPadding"
         android:paddingRight="@dimen/StandardPadding"
-        android:paddingTop="@dimen/StandardSmallPadding" />
+        android:paddingTop="@dimen/StandardSmallPadding"
+        android:textAlignment="textEnd" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/StandardSmallPadding"
+        android:text="@string/result"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/text_result"
