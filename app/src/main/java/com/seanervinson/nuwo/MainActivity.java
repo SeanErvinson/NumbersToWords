@@ -1,4 +1,4 @@
-package com.seanervinson.numberstowords;
+package com.seanervinson.nuwo;
 
 import android.content.Intent;
 import android.os.Build;
@@ -15,8 +15,8 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import com.seanervinson.numberstowords.NumberUtilities.Cheque;
-import com.seanervinson.numberstowords.NumberUtilities.NumberConversion;
+import com.seanervinson.nuwo.NumberUtilities.Cheque;
+import com.seanervinson.nuwo.NumberUtilities.NumberConversion;
 
 
 public class MainActivity extends AppCompatActivity {

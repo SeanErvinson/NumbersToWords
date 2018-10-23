@@ -1,4 +1,4 @@
-package com.seanervinson.numberstowords;
+package com.seanervinson.nuwo;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.seanervinson.numberstowords.models.SocialMedia;
+import com.seanervinson.nuwo.models.SocialMedia;
 
 import java.util.ArrayList;
 

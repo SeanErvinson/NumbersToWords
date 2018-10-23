@@ -1,11 +1,11 @@
-package com.seanervinson.numberstowords.NumberUtilities;
+package com.seanervinson.nuwo.NumberUtilities;
 
 import java.text.DecimalFormat;
 import java.util.Stack;
 
-import static com.seanervinson.numberstowords.NumberUtilities.EnglishNumerals.LARGE_NUMBERS;
-import static com.seanervinson.numberstowords.NumberUtilities.EnglishNumerals.TENS;
-import static com.seanervinson.numberstowords.NumberUtilities.EnglishNumerals.TYS;
+import static com.seanervinson.nuwo.NumberUtilities.EnglishNumerals.LARGE_NUMBERS;
+import static com.seanervinson.nuwo.NumberUtilities.EnglishNumerals.TENS;
+import static com.seanervinson.nuwo.NumberUtilities.EnglishNumerals.TYS;
 
 public class NumberConversion {
 

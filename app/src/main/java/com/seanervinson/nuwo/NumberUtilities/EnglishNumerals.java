@@ -1,4 +1,4 @@
-package com.seanervinson.numberstowords.NumberUtilities;
+package com.seanervinson.nuwo.NumberUtilities;
 
 public class EnglishNumerals {
     public static final String[] TENS = {"", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten",

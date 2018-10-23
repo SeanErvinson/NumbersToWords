@@ -1,4 +1,4 @@
-package com.seanervinson.numberstowords;
+package com.seanervinson.nuwo;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

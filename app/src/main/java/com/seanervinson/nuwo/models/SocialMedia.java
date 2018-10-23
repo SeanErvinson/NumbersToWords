@@ -1,4 +1,4 @@
-package com.seanervinson.numberstowords.models;
+package com.seanervinson.nuwo.models;
 
 import android.graphics.Bitmap;
 

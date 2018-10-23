@@ -1,4 +1,4 @@
-package com.seanervinson.numberstowords.NumberUtilities;
+package com.seanervinson.nuwo.NumberUtilities;
 
 public class Cheque {
     public static String toChequeFormat(String content) {

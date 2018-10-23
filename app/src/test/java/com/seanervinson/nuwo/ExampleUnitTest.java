@@ -1,4 +1,4 @@
-package com.seanervinson.numberstowords;
+package com.seanervinson.nuwo;
 
 import org.junit.Test;
 
