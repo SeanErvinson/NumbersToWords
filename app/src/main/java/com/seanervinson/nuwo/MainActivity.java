@@ -34,11 +34,10 @@ public class MainActivity extends AppCompatActivity {
         mSwitchCheque.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                String currentText = mTextResult.getText().toString();
                 if (isChecked) {
-                    String currentText = mTextResult.getText().toString();
                     mTextResult.setText(Cheque.toChequeFormat(currentText));
                 } else {
-                    String currentText = mTextResult.getText().toString();
                     mTextResult.setText(Cheque.toNormalFormat(currentText));
                 }
             }
@@ -60,12 +59,13 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     try {
                         resultWord = NumberConversion.parseWord(Long.valueOf(valueText));
+                        if (mSwitchCheque.isChecked())
+                            resultWord = Cheque.toChequeFormat(resultWord);
                     } catch (NumberFormatException ex) {
                         return;
                     }
                 }
-                if (mSwitchCheque.isChecked())
-                    resultWord = Cheque.toChequeFormat(resultWord);
+
                 mTextResult.setText(resultWord);
             }
 
