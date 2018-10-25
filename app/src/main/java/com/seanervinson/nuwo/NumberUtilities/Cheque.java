@@ -30,7 +30,7 @@ public class Cheque {
     }
 
     public static String toNormalFormat(String content) {
-        if (content.length() <= 0) {
+        if (content.trim().length() <= 0) {
             return null;
         }
         StringBuilder sb = new StringBuilder();

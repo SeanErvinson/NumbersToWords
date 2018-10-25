@@ -16,4 +16,10 @@
     <string name="twitter_image">Twitter Image</string>
     <string name="number">Number:</string>
     <string name="result">Result:</string>
+    <string name="settings_letter_case_title">Letter case</string>
+    <string name="settings_ads_on">Thank you for supporting me.</string>
+    <string name="settings_ads_off">Consider supporting me by enabling.</string>
+    <string name="settings_theme_key">enable_dark_theme</string>
+    <string name="settings_theme_title">Enable dark theme</string>
+    <string name="settings_ads_title">Show ads</string>
 </resources>

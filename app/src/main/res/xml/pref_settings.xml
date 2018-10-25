@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <ListPreference
+        android:title="@string/settings_letter_case_title"/>
+    <SwitchPreference
+        android:id="@+id/sw_theme"
+        android:key="@string/settings_theme_key"
+        android:title="@string/settings_theme_title"/>
+    <SwitchPreference
+        android:id="@+id/sw_show_ads"
+        android:title="@string/settings_ads_title"
+        android:summaryOn="@string/settings_ads_on"
+        android:summaryOff="@string/settings_ads_off"/>
+</PreferenceScreen>
