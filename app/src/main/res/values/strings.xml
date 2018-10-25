@@ -22,4 +22,10 @@
     <string name="settings_theme_key">enable_dark_theme</string>
     <string name="settings_theme_title">Enable dark theme</string>
     <string name="settings_ads_title">Show ads</string>
+    <string name="settings_letter_case_label_camel_case">Camel Case</string>
+    <string name="settings_letter_case_label_lower_case">Lower Case</string>
+    <string name="settings_letter_case_value_camel_case">camel</string>
+    <string name="settings_letter_case_value_lower_case">lower</string>
+    <string name="settings_ads_key">enable_ads</string>
+    <string name="settings_letter_case_key">letter_case</string>
 </resources>

@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <array name="settings_letter_case_labels">
+        <item>@string/settings_letter_case_label_camel_case</item>
+        <item>@string/settings_letter_case_label_lower_case</item>
+    </array>
+    <array name="settings_letter_case_values">
+        <item>@string/settings_letter_case_value_camel_case</item>
+        <item>@string/settings_letter_case_value_lower_case</item>
+    </array>
+</resources>
