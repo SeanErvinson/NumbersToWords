@@ -28,4 +28,5 @@
     <string name="settings_letter_case_value_lower_case">lower</string>
     <string name="settings_ads_key">enable_ads</string>
     <string name="settings_letter_case_key">letter_case</string>
+    <string name="action_settings">Settings</string>
 </resources>
