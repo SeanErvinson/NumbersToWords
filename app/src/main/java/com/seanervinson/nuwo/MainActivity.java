@@ -10,11 +10,15 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.seanervinson.nuwo.NumberUtilities.Cheque;
 import com.seanervinson.nuwo.NumberUtilities.NumberConversion;
 
@@ -24,12 +28,14 @@ public class MainActivity extends AppCompatActivity {
     private TextView mTextResult;
     private EditText mInputNumber;
     private Switch mSwitchCheque;
+    private InterstitialAd mInterstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initializeWidget();
+        initializeAdMob();
 
         mSwitchCheque.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -94,6 +100,24 @@ public class MainActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_settings, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    private void initializeAdMob() {
+        MobileAds.initialize(this, getResources().getString(R.string.nuwo_APP_ID));
+        mInterstitialAd = new InterstitialAd(this);
+//        mInterstitialAd.setAdUnitId(getString(R.string.nuwo_AD_UNIT));
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+//        mButtonTestAds.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if(mInterstitialAd.isLoaded()){
+//                    mInterstitialAd.show();
+//                }else{
+//                    Log.d("TAG", "The interstitial wasn't loaded yet.");
+//                }
+//            }
+//        });
     }
 
     private void initializeWidget() {
