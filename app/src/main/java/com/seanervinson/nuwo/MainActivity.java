@@ -35,11 +35,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 String currentText = mTextResult.getText().toString();
+                String resultText;
                 if (isChecked) {
-                    mTextResult.setText(Cheque.toChequeFormat(currentText));
+                    resultText = Cheque.toChequeFormat(currentText);
                 } else {
-                    mTextResult.setText(Cheque.toNormalFormat(currentText));
+                    resultText = Cheque.toNormalFormat(currentText);
                 }
+                mTextResult.setText(resultText);
             }
         });
         mInputNumber.addTextChangedListener(new TextWatcher() {
@@ -105,4 +107,5 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
         return true;
     }
+
 }
