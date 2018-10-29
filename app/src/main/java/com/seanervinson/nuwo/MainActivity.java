@@ -1,12 +1,16 @@
 package com.seanervinson.nuwo;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatDelegate;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -22,11 +26,12 @@ import com.seanervinson.nuwo.NumberUtilities.Cheque;
 import com.seanervinson.nuwo.NumberUtilities.NumberConversion;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     private TextView mTextResult;
     private EditText mInputNumber;
     private Switch mSwitchCheque;
+    private boolean showAds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initializeWidget();
         initializeAdMob();
+        setupSharedPreferences();
 
         mSwitchCheque.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -65,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
                     resultWord = getResources().getString(R.string.error_too_large);
                 } else {
                     try {
+                        Log.i("showAds", String.valueOf(showAds));
                         resultWord = NumberConversion.parseWord(Long.valueOf(valueText));
                         if (mSwitchCheque.isChecked())
                             resultWord = Cheque.toChequeFormat(resultWord);
@@ -101,6 +108,41 @@ public class MainActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        PreferenceManager.getDefaultSharedPreferences(this)
+                .unregisterOnSharedPreferenceChangeListener(this);
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if(key.equals(getString(R.string.settings_ads_key))){
+            setShowAds(sharedPreferences.getBoolean(key, getResources().getBoolean(R.bool.settings_ads_default_value)));
+        }else if(key.equals(getString(R.string.settings_theme_key))){
+            //
+        }
+    }
+
+    private void setupSharedPreferences() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        setShowAds(sharedPreferences.getBoolean(getString(R.string.settings_ads_key), getResources().getBoolean(R.bool.settings_ads_default_value)));
+
+        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
+    }
+
+    private void loadThemeFromPreference() {
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            setTheme(R.style.DarkTheme);
+        } else {
+            setTheme(R.style.AppTheme);
+        }
+    }
+
+    public void setShowAds(boolean showAds) {
+        this.showAds = showAds;
+    }
+
     private void initializeAdMob() {
         MobileAds.initialize(this, getResources().getString(R.string.nuwo_APP_ID));
         AdView mAdView = findViewById(R.id.adView);
@@ -118,5 +160,4 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, targetClass);
         startActivity(intent);
     }
-
 }
