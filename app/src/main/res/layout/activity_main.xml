@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/bgColor"
     android:orientation="vertical"
     android:padding="@dimen/StandardPadding"
     tools:context=".MainActivity">
@@ -13,6 +14,7 @@
         android:layout_marginBottom="@dimen/StandardSmallPadding">
 
         <TextView
+            style="@style/BaseTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -24,53 +26,53 @@
             android:id="@+id/sw_cheque_mode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"/>
 
     </RelativeLayout>
 
     <TextView
+        style="@style/HeaderTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/StandardSmallPadding"
-        android:text="@string/number"
-        android:textStyle="bold" />
+        android:text="@string/number" />
 
     <EditText
         android:id="@+id/input_number"
+        style="@style/BaseTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/StandardSmallPadding"
         android:background="@drawable/custom_edit_text"
-        android:textSize="@dimen/LargeTextSize"
         android:hint="@string/input_number"
         android:inputType="number"
-        android:paddingBottom="@dimen/XStandardPadding"
         android:paddingLeft="@dimen/StandardPadding"
-        android:paddingRight="@dimen/StandardPadding"
         android:paddingTop="@dimen/XStandardPadding"
-        android:textAlignment="textEnd" />
+        android:paddingRight="@dimen/StandardPadding"
+        android:paddingBottom="@dimen/XStandardPadding"
+        android:textAlignment="textEnd"
+        android:textSize="@dimen/LargeTextSize" />
 
     <TextView
+        style="@style/HeaderTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/StandardSmallPadding"
-        android:text="@string/result"
-        android:textStyle="bold" />
+        android:text="@string/result" />
 
     <TextView
-        android:layout_weight="1"
         android:id="@+id/text_result"
+        style="@style/BaseTextView"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_gravity="center"
+        android:layout_weight="1"
         android:textSize="20sp"
         tools:text="One hundred thousand seventy two" />
 
-    <com.google.android.gms.ads.AdView android:layout_gravity="center"
-        xmlns:ads="http://schemas.android.com/apk/res-auto"
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/adView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         ads:adSize="BANNER"
         ads:adUnitId="@string/nuwo_AD_UNIT" />
 </LinearLayout>

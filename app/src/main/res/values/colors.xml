@@ -5,4 +5,13 @@
     <color name="colorAccent">#80e27e</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="iconColor">#283E4A</color>
+    <color name="colorLightLighterText">#808080</color>
+    <color name="colorLightText">#808080</color>
+
+    <color name="colorBlack">#000000</color>
+
+    <color name="colorDarkPrimary">#243447</color>
+    <color name="colorDarkPrimaryDark">#243447</color>
+    <color name="colorDarkTint">#139D57</color>
+    <color name="colorDarkBg">#1B2836</color>
 </resources>

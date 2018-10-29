@@ -4,11 +4,13 @@
         android:title="@string/settings_letter_case_title"
         android:entries="@array/settings_letter_case_labels"
         android:entryValues="@array/settings_letter_case_values"
+        android:textColor="?attr/textColor"
         android:defaultValue="@string/settings_letter_case_value_camel_case"
         android:key="@string/settings_letter_case_key"/>
     <SwitchPreference
         android:defaultValue="@bool/settings_theme_default_value"
         android:id="@+id/sw_theme"
+        android:textColor="?attr/textColor"
         android:key="@string/settings_theme_key"
         android:title="@string/settings_theme_title"/>
     <SwitchPreference
@@ -16,6 +18,7 @@
         android:defaultValue="@bool/settings_ads_default_value"
         android:key="@string/settings_ads_key"
         android:title="@string/settings_ads_title"
+        android:textColor="?attr/textColor"
         android:summaryOn="@string/settings_ads_on"
         android:summaryOff="@string/settings_ads_off"/>
 </PreferenceScreen>
