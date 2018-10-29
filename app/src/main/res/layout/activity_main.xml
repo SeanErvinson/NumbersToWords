@@ -72,5 +72,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         ads:adSize="BANNER"
-        ads:adUnitId="@string/nuwo_AD_UNIT" />
+        ads:adUnitId="ca-app-pub-2226935352855945/3730088843" />
 </LinearLayout>

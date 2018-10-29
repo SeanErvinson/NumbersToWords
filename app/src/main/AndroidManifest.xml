@@ -16,11 +16,19 @@
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/nuwo_APP_ID" />
         <activity android:name="com.seanervinson.nuwo.MainActivity"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="https"
+                    android:host="www.seanervinson.com" />
             </intent-filter>
         </activity>
         <activity android:name="com.seanervinson.nuwo.AboutActivity" />
