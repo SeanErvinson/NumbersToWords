@@ -58,11 +58,19 @@
         android:textStyle="bold" />
 
     <TextView
+        android:layout_weight="1"
         android:id="@+id/text_result"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_gravity="center"
         android:textSize="20sp"
         tools:text="One hundred thousand seventy two" />
 
+    <com.google.android.gms.ads.AdView android:layout_gravity="center"
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/nuwo_AD_UNIT" />
 </LinearLayout>
