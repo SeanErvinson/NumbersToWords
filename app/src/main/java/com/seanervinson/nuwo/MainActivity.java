@@ -17,7 +17,6 @@ import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.seanervinson.nuwo.NumberUtilities.Cheque;
 import com.seanervinson.nuwo.NumberUtilities.NumberConversion;
@@ -28,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView mTextResult;
     private EditText mInputNumber;
     private Switch mSwitchCheque;
-    private AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,9 +86,9 @@ public class MainActivity extends AppCompatActivity {
         int optionId = item.getItemId();
         switch (optionId) {
             case R.id.action_about:
-                return openActivity(AboutActivity.class);
+                openActivity(AboutActivity.class);
             case R.id.action_settings:
-                return openActivity(SettingsActivity.class);
+                openActivity(SettingsActivity.class);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -104,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initializeAdMob() {
         MobileAds.initialize(this, getResources().getString(R.string.nuwo_APP_ID));
-        mAdView = findViewById(R.id.adView);
+        AdView mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
     }
@@ -115,10 +113,9 @@ public class MainActivity extends AppCompatActivity {
         mSwitchCheque = findViewById(R.id.sw_cheque_mode);
     }
 
-    private boolean openActivity(Class<?> targetClass) {
+    private void openActivity(Class<?> targetClass) {
         Intent intent = new Intent(this, targetClass);
         startActivity(intent);
-        return true;
     }
 
 }
