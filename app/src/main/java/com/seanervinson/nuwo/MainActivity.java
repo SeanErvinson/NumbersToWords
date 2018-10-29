@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
                 String valueText = charSequence.toString();
                 String resultWord;
                 if (valueText.length() <= 0) {
-                    resultWord = "";
+                    return;
                 } else if (valueText.length() > 19) {
                     resultWord = getResources().getString(R.string.error_too_large);
                 } else {
