@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.AppCompatDelegate;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
@@ -135,9 +134,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (key.equals(getString(R.string.settings_ads_key))) {
             mAdServices.setIsAdShown(sharedPreferences.getBoolean(key, getResources().getBoolean(R.bool.settings_ads_default_value)));
-        } else if (key.equals(getString(R.string.settings_theme_key))) {
-            //
-        } else if (key.equals(getString(R.string.settings_letter_case_key))) {
+        }else if (key.equals(getString(R.string.settings_letter_case_key))) {
             loadLetterCase(sharedPreferences);
         }
     }
@@ -163,14 +160,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         updateText(currentText, true);
     }
     //endregion
-
-    private void loadThemeFromPreference() {
-        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
-            setTheme(R.style.DarkTheme);
-        } else {
-            setTheme(R.style.AppTheme);
-        }
-    }
 
     private void updateText(String resultWord) {
         if (resultWord != null)
