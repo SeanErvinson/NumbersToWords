@@ -3,27 +3,25 @@ package com.seanervinson.nuwo;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatDelegate;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
-import com.seanervinson.nuwo.NumberUtilities.Cheque;
-import com.seanervinson.nuwo.NumberUtilities.NumberConversion;
+import com.seanervinson.nuwo.services.AdServices;
+import com.seanervinson.nuwo.utils.ChequeUtils;
+import com.seanervinson.nuwo.utils.NumberConversion;
 
 
 public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
@@ -31,7 +29,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     private TextView mTextResult;
     private EditText mInputNumber;
     private Switch mSwitchCheque;
-    private boolean showAds;
+    private FrameLayout mFrameLayoutAdContainer;
+    private AdServices mAdServices;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +47,9 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                 String currentText = mTextResult.getText().toString();
                 String resultText;
                 if (isChecked) {
-                    resultText = Cheque.toChequeFormat(currentText);
+                    resultText = ChequeUtils.toChequeFormat(currentText);
                 } else {
-                    resultText = Cheque.toNormalFormat(currentText);
+                    resultText = ChequeUtils.toNormalFormat(currentText);
                 }
                 mTextResult.setText(resultText);
             }
@@ -71,15 +70,13 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                     resultWord = getResources().getString(R.string.error_too_large);
                 } else {
                     try {
-                        Log.i("showAds", String.valueOf(showAds));
                         resultWord = NumberConversion.parseWord(Long.valueOf(valueText));
                         if (mSwitchCheque.isChecked())
-                            resultWord = Cheque.toChequeFormat(resultWord);
+                            resultWord = ChequeUtils.toChequeFormat(resultWord);
                     } catch (NumberFormatException ex) {
                         return;
                     }
                 }
-
                 mTextResult.setText(resultWord);
             }
 
@@ -117,16 +114,16 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if(key.equals(getString(R.string.settings_ads_key))){
-            setShowAds(sharedPreferences.getBoolean(key, getResources().getBoolean(R.bool.settings_ads_default_value)));
-        }else if(key.equals(getString(R.string.settings_theme_key))){
+        if (key.equals(getString(R.string.settings_ads_key))) {
+            mAdServices.setIsAdShown(sharedPreferences.getBoolean(key, getResources().getBoolean(R.bool.settings_ads_default_value)));
+        } else if (key.equals(getString(R.string.settings_theme_key))) {
             //
         }
     }
 
     private void setupSharedPreferences() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        setShowAds(sharedPreferences.getBoolean(getString(R.string.settings_ads_key), getResources().getBoolean(R.bool.settings_ads_default_value)));
+        mAdServices.setIsAdShown(sharedPreferences.getBoolean(getString(R.string.settings_ads_key), getResources().getBoolean(R.bool.settings_ads_default_value)));
 
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
     }
@@ -139,21 +136,16 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         }
     }
 
-    public void setShowAds(boolean showAds) {
-        this.showAds = showAds;
-    }
-
     private void initializeAdMob() {
-        MobileAds.initialize(this, getResources().getString(R.string.nuwo_APP_ID));
-        AdView mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+        mAdServices = new AdServices(this, mFrameLayoutAdContainer);
+        mAdServices.initializeAds(getResources().getString(R.string.nuwo_APP_ID));
     }
 
     private void initializeWidget() {
         mTextResult = findViewById(R.id.text_result);
         mInputNumber = findViewById(R.id.input_number);
         mSwitchCheque = findViewById(R.id.sw_cheque_mode);
+        mFrameLayoutAdContainer = findViewById(R.id.frame_layout_ad_container);
     }
 
     private void openActivity(Class<?> targetClass) {

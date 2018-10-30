@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'test'
+            keyPassword 'testsign'
+            storeFile file('D:/Keys/test-android-keystore.jks')
+            storePassword 'testsign'
+        }
+    }
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.seanervinson.nuwo"
@@ -12,24 +20,28 @@ android {
     }
     buildTypes {
         debug {
-            resValue 'string',"nuwo_APP_ID", nuwo_appId
-            resValue 'string',"nuwo_AD_UNIT", ad_banner_sample
-            buildConfigField 'String',"nuwo_APP_ID", nuwo_appId
+            resValue 'string', "nuwo_APP_ID", nuwo_appId
+            resValue 'string', "nuwo_AD_UNIT", ad_banner_sample
+            buildConfigField 'String', "nuwo_APP_ID", nuwo_appId
         }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            buildConfigField 'String',"nuwo_APP_ID", nuwo_appId
-            resValue 'string',"nuwo_APP_ID", nuwo_appId
-            resValue 'string',"nuwo_AD_UNIT", nuwo_adUnit
+            buildConfigField 'String', "nuwo_APP_ID", nuwo_appId
+            resValue 'string', "nuwo_APP_ID", nuwo_appId
+            resValue 'string', "nuwo_AD_UNIT", nuwo_adUnit
+            signingConfig signingConfigs.config
         }
     }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation "com.android.support:customtabs:28.0.0"
     implementation 'com.android.support:preference-v7:28.0.0'
+    implementation 'com.android.support:support-media-compat:28.0.0'
+    implementation 'com.android.support:support-v4:28.0.0'
     implementation 'com.google.firebase:firebase-core:16.0.4'
     implementation 'com.google.android.gms:play-services-ads:17.0.0'
     testImplementation 'junit:junit:4.12'

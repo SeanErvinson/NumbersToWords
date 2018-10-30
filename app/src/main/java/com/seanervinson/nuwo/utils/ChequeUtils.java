@@ -1,8 +1,8 @@
-package com.seanervinson.nuwo.NumberUtilities;
+package com.seanervinson.nuwo.utils;
 
-import static com.seanervinson.nuwo.NumberUtilities.EnglishNumerals.LARGE_NUMBERS;
+import static com.seanervinson.nuwo.models.EnglishNumerals.LARGE_NUMBERS;
 
-public class Cheque {
+public class ChequeUtils {
     public static String toChequeFormat(String content) {
         if (content.trim().length() <= 0) {
             return null;
