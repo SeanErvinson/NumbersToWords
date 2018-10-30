@@ -22,15 +22,21 @@ import android.widget.TextView;
 import com.seanervinson.nuwo.services.AdServices;
 import com.seanervinson.nuwo.utils.ChequeUtils;
 import com.seanervinson.nuwo.utils.NumberConversion;
+import com.seanervinson.nuwo.utils.StringUtils;
 
 
 public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
+
+    private static final String LOWER_CASE = "lower";
+    private static final String CAMEL_CASE = "camel";
 
     private TextView mTextResult;
     private EditText mInputNumber;
     private Switch mSwitchCheque;
     private FrameLayout mFrameLayoutAdContainer;
     private AdServices mAdServices;
+
+    private boolean mLowerCase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,19 +46,17 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         initializeAdMob();
         setupSharedPreferences();
 
-        String x = "te";
-
         mSwitchCheque.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 String currentText = mTextResult.getText().toString();
                 String resultText;
                 if (isChecked) {
-                    resultText = ChequeUtils.toChequeFormat(x);
+                    resultText = ChequeUtils.toChequeFormat(currentText);
                 } else {
                     resultText = ChequeUtils.toNormalFormat(currentText);
                 }
-                mTextResult.setText(resultText);
+                updateText(resultText);
             }
         });
         mInputNumber.addTextChangedListener(new TextWatcher() {
@@ -78,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                         return;
                     }
                 }
-                mTextResult.setText(resultWord);
+                updateText(resultWord);
             }
 
             @Override
@@ -87,6 +91,21 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         });
     }
 
+    //region Initialize Components
+    private void initializeAdMob() {
+        mAdServices = new AdServices(this, mFrameLayoutAdContainer);
+        mAdServices.initializeAds(getResources().getString(R.string.nuwo_APP_ID));
+    }
+
+    private void initializeWidget() {
+        mTextResult = findViewById(R.id.text_result);
+        mInputNumber = findViewById(R.id.input_number);
+        mSwitchCheque = findViewById(R.id.sw_cheque_mode);
+        mFrameLayoutAdContainer = findViewById(R.id.frame_layout_ad_container);
+    }
+    //endregion
+
+    //region Options
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int optionId = item.getItemId();
@@ -105,7 +124,9 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         inflater.inflate(R.menu.main_settings, menu);
         return super.onCreateOptionsMenu(menu);
     }
+    //endregion
 
+    //region Shared Preferences
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -119,15 +140,32 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             mAdServices.setIsAdShown(sharedPreferences.getBoolean(key, getResources().getBoolean(R.bool.settings_ads_default_value)));
         } else if (key.equals(getString(R.string.settings_theme_key))) {
             //
+        } else if (key.equals(getString(R.string.settings_letter_case_key))) {
+            loadLetterCase(sharedPreferences);
         }
     }
 
     private void setupSharedPreferences() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mAdServices.setIsAdShown(sharedPreferences.getBoolean(getString(R.string.settings_ads_key), getResources().getBoolean(R.bool.settings_ads_default_value)));
-
+        loadLetterCase(sharedPreferences);
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
     }
+
+    private void loadLetterCase(SharedPreferences sharedPreferences) {
+        String letterCase = sharedPreferences.getString(getString(R.string.settings_letter_case_key), getString(R.string.settings_letter_case_default_value));
+        switch (letterCase) {
+            case LOWER_CASE:
+                mLowerCase = true;
+                break;
+            case CAMEL_CASE:
+                mLowerCase = false;
+                break;
+        }
+        String currentText = mTextResult.getText().toString();
+        updateText(currentText, true);
+    }
+    //endregion
 
     private void loadThemeFromPreference() {
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
@@ -137,16 +175,21 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         }
     }
 
-    private void initializeAdMob() {
-        mAdServices = new AdServices(this, mFrameLayoutAdContainer);
-        mAdServices.initializeAds(getResources().getString(R.string.nuwo_APP_ID));
+    private void updateText(String resultWord) {
+        if (resultWord != null)
+            resultWord = mLowerCase ? resultWord.toLowerCase() : resultWord;
+        mTextResult.setText(resultWord);
     }
 
-    private void initializeWidget() {
-        mTextResult = findViewById(R.id.text_result);
-        mInputNumber = findViewById(R.id.input_number);
-        mSwitchCheque = findViewById(R.id.sw_cheque_mode);
-        mFrameLayoutAdContainer = findViewById(R.id.frame_layout_ad_container);
+    private void updateText(String resultWord, boolean change) {
+        if (resultWord != null)
+            if (mLowerCase)
+                resultWord = resultWord.toLowerCase();
+            else {
+                if (change)
+                    resultWord = StringUtils.toTitleCase(resultWord);
+            }
+        mTextResult.setText(resultWord);
     }
 
     private void openActivity(Class<?> targetClass) {

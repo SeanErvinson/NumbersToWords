@@ -15,7 +15,7 @@ public class ChequeUtils {
         for (int i = 0; i < words.length; i++) {
             boolean betweenUnit = false;
             sb.append(words[i]).append(" ");
-            if (words[i].equals("Hundred") && i != words.length - 1) {
+            if (words[i].toLowerCase().equals("hundred") && i != words.length - 1) {
                 for (int j = largeNumberIndex; j >= 0; j--) {
                     if (words[i + 1].equals(LARGE_NUMBERS[j])) {
                         betweenUnit = true;
@@ -36,7 +36,7 @@ public class ChequeUtils {
         StringBuilder sb = new StringBuilder();
         String[] words = content.trim().split(" ");
         for (int i = 0; i < words.length - 1; i++) {
-            if (!words[i].equals("And")) {
+            if (!words[i].toLowerCase().equals("and")) {
                 sb.append(words[i]).append(" ");
             }
         }
