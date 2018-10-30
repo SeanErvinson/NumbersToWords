@@ -64,13 +64,12 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             }
 
-            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 String valueText = charSequence.toString();
                 String resultWord;
                 if (valueText.length() <= 0) {
-                    return;
+                    resultWord = null;
                 } else if (valueText.length() > 19) {
                     resultWord = getResources().getString(R.string.error_too_large);
                 } else {
