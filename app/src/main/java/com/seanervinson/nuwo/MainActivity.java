@@ -34,12 +34,13 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initializeWidget();
         initializeAdMob();
         setupSharedPreferences();
+
+        String x = "te";
 
         mSwitchCheque.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                 String currentText = mTextResult.getText().toString();
                 String resultText;
                 if (isChecked) {
-                    resultText = ChequeUtils.toChequeFormat(currentText);
+                    resultText = ChequeUtils.toChequeFormat(x);
                 } else {
                     resultText = ChequeUtils.toNormalFormat(currentText);
                 }

@@ -16,8 +16,7 @@
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/nuwo_APP_ID" />
         <activity android:name="com.seanervinson.nuwo.MainActivity"
-            android:launchMode="singleTop"
-            android:theme="@style/SplashTheme">
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
