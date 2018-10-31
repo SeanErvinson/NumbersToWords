@@ -1,33 +1,33 @@
 <resources>
-    <string name="app_name">NuWo</string>
-    <string name="cheque_mode">Cheque Mode</string>
-    <string name="input_number">Enter Number</string>
-    <string name="error_too_large">Uh oh! Number is too large.</string>
-    <string name="about">About</string>
-    <string name="settings">Settings</string>
-    <string name="credit">If you enjoyed the app and wants to see more.\nFollow me on:</string>
+    <string name="app_name" translatable="false">NuWo</string>
+    <string name="cheque_mode" translatable="true">Cheque Mode</string>
+    <string name="input_number" translatable="true">Enter Number</string>
+    <string name="error_too_large" translatable="true">Uh oh! Number is too large.</string>
+    <string name="about" translatable="true">About</string>
+    <string name="settings" translatable="true">Settings</string>
+    <string name="credit" translatable="true">If you enjoyed the app and want to see more.\nFollow me on:</string>
     <string name="created_by">created by: Sean Ervinson</string>
-    <string name="social_github">/SeanErvinson</string>
-    <string name="social_linkedin">/seanervinson</string>
-    <string name="social_twitter">\@ASean___</string>
-    <string name="application_logo">Application Logo</string>
-    <string name="github_image">Github Image</string>
-    <string name="linkedin_image">Linkedin Image</string>
-    <string name="twitter_image">Twitter Image</string>
-    <string name="number">Number:</string>
-    <string name="result">Result:</string>
-    <string name="settings_letter_case_title">Letter case</string>
-    <string name="settings_ads_on">Thank you for supporting me.</string>
-    <string name="settings_ads_off">Consider supporting me by enabling.</string>
-    <string name="settings_theme_key">enable_dark_theme</string>
-    <string name="settings_theme_title">Enable dark theme</string>
-    <string name="settings_ads_title">Show ads</string>
-    <string name="settings_letter_case_label_camel_case">Camel Case</string>
-    <string name="settings_letter_case_label_lower_case">Lower Case</string>
-    <string name="settings_letter_case_value_camel_case">camel</string>
-    <string name="settings_letter_case_value_lower_case">lower</string>
-    <string name="settings_letter_case_default_value">lower</string>
-    <string name="settings_ads_key">enable_ads</string>
-    <string name="settings_letter_case_key">letter_case</string>
-    <string name="action_settings">Settings</string>
+    <string name="social_github" translatable="false">/SeanErvinson</string>
+    <string name="social_linkedin" translatable="false">/seanervinson</string>
+    <string name="social_twitter" translatable="false">\@ASean___</string>
+    <string name="application_logo" translatable="false">Application Logo</string>
+    <string name="github_image" translatable="false">Github Image</string>
+    <string name="linkedin_image" translatable="false">Linkedin Image</string>
+    <string name="twitter_image" translatable="false">Twitter Image</string>
+    <string name="number" translatable="true">Number:</string>
+    <string name="result" translatable="true">Result:</string>
+    <string name="settings_letter_case_title" translatable="true">Letter case</string>
+    <string name="settings_ads_on" translatable="true">Thank you for supporting me.</string>
+    <string name="settings_ads_off" translatable="true">Consider supporting me by enabling.</string>
+    <string name="settings_theme_key" translatable="false">enable_dark_theme</string>
+    <string name="settings_theme_title" translatable="true">Enable dark theme</string>
+    <string name="settings_ads_title" translatable="true">Show ads</string>
+    <string name="settings_letter_case_label_camel_case" translatable="true">Camel Case</string>
+    <string name="settings_letter_case_label_lower_case" translatable="true">Lower Case</string>
+    <string name="settings_letter_case_value_camel_case" translatable="false">camel</string>
+    <string name="settings_letter_case_value_lower_case" translatable="false">lower</string>
+    <string name="settings_letter_case_default_value" translatable="false">lower</string>
+    <string name="settings_ads_key" translatable="false">enable_ads</string>
+    <string name="settings_letter_case_key" translatable="false">letter_case</string>
+    <string name="action_settings" translatable="true">Settings</string>
 </resources>
