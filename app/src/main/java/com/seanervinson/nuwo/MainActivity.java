@@ -108,9 +108,9 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         int optionId = item.getItemId();
         switch (optionId) {
             case R.id.action_about:
-                openActivity(AboutActivity.class);
+                return openActivity(AboutActivity.class);
             case R.id.action_settings:
-                openActivity(SettingsActivity.class);
+                return openActivity(SettingsActivity.class);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -189,8 +189,9 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         mTextResult.setText(resultWord);
     }
 
-    private void openActivity(Class<?> targetClass) {
+    private boolean openActivity(Class<?> targetClass) {
         Intent intent = new Intent(this, targetClass);
         startActivity(intent);
+        return true;
     }
 }

@@ -5,7 +5,7 @@
     <string name="error_too_large" translatable="true">Uh oh! Number is too large.</string>
     <string name="about" translatable="true">About</string>
     <string name="settings" translatable="true">Settings</string>
-    <string name="credit" translatable="true">If you enjoyed the app and wants to see more.\nFollow me on:</string>
+    <string name="credit" translatable="true">If you enjoyed the app and want to see more.\nFollow me on:</string>
     <string name="created_by">created by: Sean Ervinson</string>
     <string name="social_github" translatable="false">/SeanErvinson</string>
     <string name="social_linkedin" translatable="false">/seanervinson</string>
