@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:nuwo/utils/conversion.dart';
 import 'package:nuwo/values/colors.dart';
 import 'package:nuwo/values/strings.dart';
+
+import 'package:auto_size_text/auto_size_text.dart';
 
 void main() => runApp(NuWoApp());
 
@@ -27,64 +31,45 @@ class MainPage extends StatefulWidget {
   _MainPageState createState() => _MainPageState();
 }
 
+class BaseHeader extends StatelessWidget {
+  final color;
+  final title;
+
+  const BaseHeader({Key key, this.color, this.title}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Text(
+        title,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          color: color,
+          fontSize: 40,
+          fontWeight: FontWeight.w400,
+        ),
+      ),
+    );
+  }
+}
+
 class _MainPageState extends State<MainPage> {
   final _numberController = TextEditingController();
   String resultWord = '';
 
   setWordText(String content) {
     setState(() {
-      resultWord = content;
+      if (content.length > 19)
+        resultWord = Strings.numberErrorOutput;
+      else
+        resultWord = Conversion.parseWord(content);
     });
   }
 
-  Widget genericHeader(String title) {
-    return Container(
-      child: Text(
-        title,
-        textAlign: TextAlign.center,
-        style: headerTextStlye(),
-      ),
-    );
-  }
-
-  Widget darkGenericHeader(String title) {
-    return Container(
-      child: Text(
-        title,
-        textAlign: TextAlign.center,
-        style: darkHeaderTextStlye(),
-      ),
-    );
-  }
-
-  TextStyle headerTextStlye() {
-    return TextStyle(
-      color: Colors.white,
-      fontSize: 32,
-      fontWeight: FontWeight.w400,
-    );
-  }
-
-  TextStyle darkHeaderTextStlye() {
-    return TextStyle(
-      color: LightGreen,
-      fontSize: 32,
-      fontWeight: FontWeight.w300,
-    );
-  }
-
-  TextStyle darkInputTextStyle() {
+  TextStyle inputTextStyle(color) {
     return TextStyle(
       fontWeight: FontWeight.w700,
-      color: LightGreen,
-      fontSize: 48,
-    );
-  }
-
-  TextStyle inputTextStyle() {
-    return TextStyle(
-      fontWeight: FontWeight.w700,
-      color: Colors.white,
+      color: color,
       fontSize: 48,
     );
   }
@@ -93,53 +78,91 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: Drawer(
-        child: Text("Gello"),
-      ),
+          child: ListView(
+        children: <Widget>[
+          Container(
+            height: 96.0,
+            child: DrawerHeader(
+              child: Text("Hello"),
+            ),
+          ),
+          ListTile(
+            title: Text("About Me"),
+            leading: Icon(Icons.person),
+          ),
+          ListTile(
+            title: Text("Cheque Mode"),
+            trailing: Switch(
+              value: false, onChanged: (bool value) {print(value);},
+            ),
+          )
+        ],
+      )),
       body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            Expanded(
-              child: Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    genericHeader(Strings.headerNumber),
-                    TextField(
-                      style: inputTextStyle(),
-                      controller: _numberController,
-                      textAlign: TextAlign.center,
-                      onChanged: (content) {
-                        setWordText(content);
-                      },
-                      cursorColor: Colors.white,
-                      keyboardType: TextInputType.numberWithOptions(
-                          signed: true, decimal: true),
-                      decoration: InputDecoration.collapsed(),
-                      autofocus: true,
-                      cursorWidth: 5,
-                    ),
-                  ],
-                ),
-                color: LightGreen,
-              ),
-            ),
-            Expanded(
-              child: Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    darkGenericHeader(Strings.headerWord),
-                    Text(
-                      resultWord,
-                      textAlign: TextAlign.center,
-                      style: darkInputTextStyle(),
-                    ),
-                  ],
+        child: Container(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Expanded(
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 48, vertical: 24),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      BaseHeader(
+                          color: Colors.white, title: Strings.headerNumber),
+                      Expanded(
+                        child: Center(
+                          child: TextField(
+                            style: inputTextStyle(Colors.white),
+                            controller: _numberController,
+                            textAlign: TextAlign.center,
+                            maxLines: 2,
+                            onChanged: (content) {
+                              setWordText(content);
+                            },
+                            inputFormatters: <TextInputFormatter>[
+                              WhitelistingTextInputFormatter.digitsOnly
+                            ],
+                            cursorColor: Colors.white,
+                            keyboardType: TextInputType.number,
+                            decoration:
+                                InputDecoration.collapsed(hintText: null),
+                            cursorWidth: 5,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  color: LightGreen,
                 ),
               ),
-            ),
-          ],
+              Expanded(
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 32, vertical: 24),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      BaseHeader(color: LightGreen, title: Strings.headerWord),
+                      Expanded(
+                        child: Center(
+                          child: AutoSizeText(
+                            resultWord,
+                            style: inputTextStyle(LightGreen),
+                            minFontSize: 16.0,
+                            maxLines: 5,
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
