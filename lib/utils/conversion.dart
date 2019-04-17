@@ -1,4 +1,4 @@
-import 'package:nuwo/models/EnglishNumerals.dart';
+import 'package:nuwo/models/english_numerals.dart';
 
 class Conversion {
   static String _getMask(String content) {
