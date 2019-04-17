@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:nuwo/pages/about_page.dart';
+import 'package:nuwo/utils/cheque_utils.dart';
 import 'package:nuwo/utils/conversion.dart';
 import 'package:nuwo/values/colors.dart';
 import 'package:nuwo/values/strings.dart';
@@ -11,11 +13,14 @@ void main() => runApp(NuWoApp());
 class NuWoApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: LightGreen,
+    ));
     return MaterialApp(
       title: Strings.applicationName,
       theme: ThemeData(
         primarySwatch: Colors.lightGreen,
-        canvasColor: Colors.white,
+        canvasColor: LightGreen,
         fontFamily: 'WorkSans',
       ),
       home: MainPage(title: 'Main Page'),
@@ -31,14 +36,38 @@ class MainPage extends StatefulWidget {
   _MainPageState createState() => _MainPageState();
 }
 
-class BaseHeader extends StatelessWidget {
-  final color;
-  final title;
-
-  const BaseHeader({Key key, this.color, this.title}) : super(key: key);
+class _MainPageState extends State<MainPage> {
+  final _numberController = TextEditingController();
+  bool _chequeMode = false;
+  String resultWord = '';
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
+    _numberController.addListener(setWordText);
+  }
+
+  @override
+  void dispose() {
+    _numberController.dispose();
+    super.dispose();
+  }
+
+  setWordText() {
+    var content = _numberController.text;
+    setState(() {
+      if (content.length > 19)
+        resultWord = Strings.numberErrorOutput;
+      else {
+        resultWord = Conversion.parseWord(content);
+        resultWord = _chequeMode
+            ? ChequeUtils.toChequeFormat(resultWord)
+            : ChequeUtils.toNormalFormat(resultWord);
+      }
+    });
+  }
+
+  Widget baseHeader(title, color) {
     return Container(
       child: Text(
         title,
@@ -50,20 +79,6 @@ class BaseHeader extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-class _MainPageState extends State<MainPage> {
-  final _numberController = TextEditingController();
-  String resultWord = '';
-
-  setWordText(String content) {
-    setState(() {
-      if (content.length > 19)
-        resultWord = Strings.numberErrorOutput;
-      else
-        resultWord = Conversion.parseWord(content);
-    });
   }
 
   TextStyle inputTextStyle(color) {
@@ -77,27 +92,35 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
-          child: ListView(
-        children: <Widget>[
-          Container(
-            height: 96.0,
-            child: DrawerHeader(
-              child: Text("Hello"),
-            ),
-          ),
-          ListTile(
-            title: Text("About Me"),
-            leading: Icon(Icons.person),
-          ),
-          ListTile(
-            title: Text("Cheque Mode"),
-            trailing: Switch(
-              value: false, onChanged: (bool value) {print(value);},
-            ),
+      appBar: AppBar(
+        elevation: 0.0,
+        leading: IconButton(
+          icon: Icon(Icons.help),
+          onPressed: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => AboutPage()));
+          },
+        ),
+        actions: <Widget>[
+          Row(
+            children: <Widget>[
+              Text(
+                'Cheque Mode',
+                style: TextStyle(fontSize: 16, color: Colors.white),
+              ),
+              Switch(
+                value: _chequeMode,
+                activeColor: Colors.white,
+                onChanged: (bool value) {
+                  _chequeMode = value;
+                  setWordText();
+                },
+              ),
+            ],
           )
         ],
-      )),
+        backgroundColor: Colors.transparent,
+      ),
       body: SafeArea(
         child: Container(
           child: Column(
@@ -109,8 +132,7 @@ class _MainPageState extends State<MainPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
-                      BaseHeader(
-                          color: Colors.white, title: Strings.headerNumber),
+                      baseHeader(Strings.headerNumber, Colors.white),
                       Expanded(
                         child: Center(
                           child: TextField(
@@ -118,9 +140,6 @@ class _MainPageState extends State<MainPage> {
                             controller: _numberController,
                             textAlign: TextAlign.center,
                             maxLines: 2,
-                            onChanged: (content) {
-                              setWordText(content);
-                            },
                             inputFormatters: <TextInputFormatter>[
                               WhitelistingTextInputFormatter.digitsOnly
                             ],
@@ -129,6 +148,7 @@ class _MainPageState extends State<MainPage> {
                             decoration:
                                 InputDecoration.collapsed(hintText: null),
                             cursorWidth: 5,
+                            autofocus: true,
                           ),
                         ),
                       ),
@@ -143,7 +163,7 @@ class _MainPageState extends State<MainPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
-                      BaseHeader(color: LightGreen, title: Strings.headerWord),
+                      baseHeader(Strings.headerWord, LightGreen),
                       Expanded(
                         child: Center(
                           child: AutoSizeText(
