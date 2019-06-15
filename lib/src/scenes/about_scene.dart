@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nuwo/src/values/colors.dart';
+import 'package:nuwo/src/values/values.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AboutScene extends StatefulWidget {
@@ -57,7 +58,7 @@ class _AboutSceneState extends State<AboutScene> {
                     child: ListView(
                       children: <Widget>[
                         ListTile(
-                          title: Text('Developed by: SeanErvinson'),
+                          title: Text(Strings.developedBy),
                         ),
                         ListTile(
                           title: Text('SeanErvinson'),

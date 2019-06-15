@@ -7,4 +7,5 @@ class Strings {
   static final pageSettigs = "Settings";
   static final headerNumber = "Number";
   static final headerWord = "Word";
+  static final developedBy = "Developed by: SeanErvinson";
 }
