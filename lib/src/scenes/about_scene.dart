@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:nuwo/values/colors.dart';
+import 'package:nuwo/src/values/colors.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class AboutPage extends StatefulWidget {
+class AboutScene extends StatefulWidget {
   @override
-  _AboutPageState createState() => _AboutPageState();
+  _AboutSceneState createState() => _AboutSceneState();
 }
 
-class _AboutPageState extends State<AboutPage> {
+class _AboutSceneState extends State<AboutScene> {
   _launchURL(String url) async {
     if (await canLaunch(url)) {
       await launch(url);
