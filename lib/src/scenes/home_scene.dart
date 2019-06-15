@@ -1,3 +1,11 @@
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:nuwo/src/scenes/scenes.dart';
+import 'package:nuwo/src/utils/cheque_utils.dart';
+import 'package:nuwo/src/utils/conversion.dart';
+import 'package:nuwo/src/values/values.dart';
+
 class HomeScene extends StatefulWidget {
   HomeScene({Key key, this.title}) : super(key: key);
   final String title;
@@ -68,7 +76,7 @@ class _HomeSceneState extends State<HomeScene> {
           icon: Icon(Icons.help),
           onPressed: () {
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => AboutPage()));
+                context, MaterialPageRoute(builder: (context) => AboutScene()));
           },
         ),
         actions: <Widget>[

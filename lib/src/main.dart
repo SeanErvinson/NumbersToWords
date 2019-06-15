@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:nuwo/pages/about_page.dart';
-import 'package:nuwo/utils/cheque_utils.dart';
-import 'package:nuwo/utils/conversion.dart';
-import 'package:nuwo/values/colors.dart';
-import 'package:nuwo/values/strings.dart';
-
-import 'package:auto_size_text/auto_size_text.dart';
+import 'package:nuwo/src/scenes/scenes.dart';
+import 'package:nuwo/src/values/colors.dart';
+import 'package:nuwo/src/values/strings.dart';
 
 void main() => runApp(NuWoApp());
 
@@ -23,7 +19,7 @@ class NuWoApp extends StatelessWidget {
         canvasColor: LightGreen,
         fontFamily: 'WorkSans',
       ),
-      home: MainPage(title: 'Main Page'),
+      home: HomeScene(title: 'Main Page'),
     );
   }
 }
