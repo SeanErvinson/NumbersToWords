@@ -19,6 +19,7 @@ class NuWoApp extends StatelessWidget {
         canvasColor: LightGreen,
         fontFamily: 'WorkSans',
       ),
+      debugShowCheckedModeBanner: false,
       home: HomeScene(title: 'Main Page'),
     );
   }

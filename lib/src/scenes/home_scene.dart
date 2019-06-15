@@ -69,99 +69,98 @@ class _HomeSceneState extends State<HomeScene> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0.0,
-        leading: IconButton(
-          icon: Icon(Icons.help),
-          onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => AboutScene()));
-          },
-        ),
-        actions: <Widget>[
-          Row(
-            children: <Widget>[
-              Text(
-                'Cheque Mode',
-                style: TextStyle(fontSize: 16, color: Colors.white),
-              ),
-              Switch(
-                value: _chequeMode,
-                activeColor: Colors.white,
-                onChanged: (bool value) {
-                  _chequeMode = value;
-                  setWordText();
-                },
-              ),
-            ],
-          )
-        ],
-        backgroundColor: Colors.transparent,
-      ),
-      body: SafeArea(
-        child: Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Expanded(
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 48, vertical: 24),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: <Widget>[
-                      baseHeader(Strings.headerNumber, Colors.white),
-                      Expanded(
-                        child: Center(
-                          child: TextField(
-                            style: inputTextStyle(Colors.white),
-                            controller: _numberController,
-                            textAlign: TextAlign.center,
-                            maxLines: 2,
-                            inputFormatters: <TextInputFormatter>[
-                              WhitelistingTextInputFormatter.digitsOnly
-                            ],
-                            cursorColor: Colors.white,
-                            keyboardType: TextInputType.number,
-                            decoration:
-                                InputDecoration.collapsed(hintText: null),
-                            cursorWidth: 5,
-                            autofocus: true,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  color: LightGreen,
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 32, vertical: 24),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: <Widget>[
-                      baseHeader(Strings.headerWord, LightGreen),
-                      Expanded(
-                        child: Center(
-                          child: AutoSizeText(
-                            resultWord,
-                            style: inputTextStyle(LightGreen),
-                            minFontSize: 16.0,
-                            maxLines: 5,
-                            overflow: TextOverflow.ellipsis,
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  color: Colors.white,
-                ),
-              ),
-            ],
+    return Material(
+      child: Scaffold(
+        appBar: AppBar(
+          elevation: 0.0,
+          leading: IconButton(
+            color: Colors.white,
+            icon: Icon(Icons.help),
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => AboutScene()));
+            },
           ),
+          actions: <Widget>[
+            Row(
+              children: <Widget>[
+                Text(
+                  Strings.chequeMode,
+                  style: TextStyle(fontSize: 16, color: Colors.white),
+                ),
+                Switch(
+                  value: _chequeMode,
+                  activeColor: Colors.white,
+                  onChanged: (bool value) {
+                    _chequeMode = value;
+                    setWordText();
+                  },
+                ),
+              ],
+            )
+          ],
+          backgroundColor: Colors.transparent,
         ),
+        body: Container(
+            child: Column(
+          children: <Widget>[
+            Container(
+              height: (MediaQuery.of(context).size.height / 2) -
+                  AppBar().preferredSize.height,
+              width: MediaQuery.of(context).size.width,
+              padding: EdgeInsets.symmetric(horizontal: 48, vertical: 24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  baseHeader(Strings.headerNumber, Colors.white),
+                  Expanded(
+                    child: Center(
+                      child: TextField(
+                        style: inputTextStyle(Colors.white),
+                        controller: _numberController,
+                        textAlign: TextAlign.center,
+                        maxLines: 2,
+                        inputFormatters: <TextInputFormatter>[
+                          WhitelistingTextInputFormatter.digitsOnly
+                        ],
+                        cursorColor: Colors.white,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration.collapsed(hintText: null),
+                        cursorWidth: 5,
+                        autofocus: true,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              color: LightGreen,
+            ),
+            Expanded(
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                padding: EdgeInsets.symmetric(horizontal: 32, vertical: 24),
+                child: Column(
+                  children: <Widget>[
+                    baseHeader(Strings.headerWord, LightGreen),
+                    Expanded(
+                      child: Center(
+                        child: AutoSizeText(
+                          resultWord,
+                          style: inputTextStyle(LightGreen),
+                          minFontSize: 16.0,
+                          maxLines: 5,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                color: Colors.white,
+              ),
+            ),
+          ],
+        )),
       ),
     );
   }
