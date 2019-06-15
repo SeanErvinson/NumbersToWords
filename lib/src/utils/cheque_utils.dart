@@ -1,4 +1,4 @@
-import 'package:nuwo/models/english_numerals.dart';
+import 'package:nuwo/src/models/english_numerals.dart';
 
 class ChequeUtils {
   static String toChequeFormat(String content) {
