@@ -89,20 +89,6 @@ class _AboutSceneState extends State<AboutScene> {
                       ],
                     ),
                   ),
-                ),
-                Container(
-                  padding: EdgeInsets.all(8),
-                  child: Center(
-                    child: GestureDetector(
-                      onTap: () => _launchURL(
-                          'https://seanervinson.com/projects/nuwo/privacy-policy'),
-                      child: Text(
-                        'Privacy Policy',
-                        style: TextStyle(
-                            fontSize: 16, decoration: TextDecoration.underline),
-                      ),
-                    ),
-                  ),
                 )
               ],
             ),
