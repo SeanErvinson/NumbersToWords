@@ -83,7 +83,7 @@ class WordResultField extends StatelessWidget {
         minFontSize: 16.0,
         maxLines: 5,
         overflow: TextOverflow.ellipsis,
-        textAlign: TextAlign.start,
+        textAlign: TextAlign.center,
       ),
     );
   }
