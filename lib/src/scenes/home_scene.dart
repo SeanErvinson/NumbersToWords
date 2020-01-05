@@ -1,51 +1,137 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:nuwo/src/scenes/scenes.dart';
-import 'package:nuwo/src/utils/cheque_utils.dart';
-import 'package:nuwo/src/utils/conversion.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nuwo/src/bloc/bloc.dart';
+import 'package:nuwo/src/models/number_word.dart';
 import 'package:nuwo/src/values/values.dart';
 
-class HomeScene extends StatefulWidget {
-  HomeScene({Key key, this.title}) : super(key: key);
-  final String title;
-
+class HomeScene extends StatelessWidget {
   @override
-  _HomeSceneState createState() => _HomeSceneState();
+  Widget build(BuildContext context) {
+    var _usableScreenHeight =
+        MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
+    return SafeArea(
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: BlocBuilder<WordBloc, NumberWord>(
+          builder: (context, state) {
+            return Column(
+              children: <Widget>[
+                Container(
+                  height: _usableScreenHeight / 2,
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.all(8.0),
+                  child: Column(
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          IconButton(
+                              color: Colors.white,
+                              icon: Icon(Icons.help),
+                              onPressed: () =>
+                                  Navigator.pushNamed(context, "about")),
+                          ChequeSwitch(state),
+                        ],
+                      ),
+                      TitleHeader(
+                          title: Strings.headerNumber, color: Colors.white),
+                      Flexible(
+                        flex: 1,
+                        child: NumberInputField(),
+                      ),
+                    ],
+                  ),
+                  color: LightGreen,
+                ),
+                Container(
+                  height: _usableScreenHeight / 2,
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.symmetric(horizontal: 32, vertical: 24),
+                  child: Column(
+                    children: <Widget>[
+                      TitleHeader(title: Strings.headerWord, color: LightGreen),
+                      Flexible(
+                        flex: 1,
+                        child: WordResultField(state.output),
+                      ),
+                    ],
+                  ),
+                  color: Colors.white,
+                ),
+              ],
+            );
+          },
+        ),
+      ),
+    );
+  }
 }
 
-class _HomeSceneState extends State<HomeScene> {
-  final _numberController = TextEditingController();
-  bool _chequeMode = false;
-  String resultWord = '';
+class WordResultField extends StatelessWidget {
+  final String output;
+
+  const WordResultField(this.output);
 
   @override
-  void initState() {
-    super.initState();
-    _numberController.addListener(setWordText);
+  Widget build(BuildContext context) {
+    return Center(
+      child: AutoSizeText(
+        output,
+        style: inputTextStyle(LightGreen),
+        minFontSize: 16.0,
+        maxLines: 5,
+        overflow: TextOverflow.ellipsis,
+        textAlign: TextAlign.start,
+      ),
+    );
+  }
+}
+
+class ChequeSwitch extends StatelessWidget {
+  final NumberWord result;
+  ChequeSwitch(this.result);
+  void convertOutput(BuildContext context, NumberWord word) {
+    final wordBloc = BlocProvider.of<WordBloc>(context);
+    if (!word.chequeMode) {
+      wordBloc.add(ConvertNormalFormat(word.input));
+    } else {
+      wordBloc.add(ConvertChequeFormat(word.input));
+    }
   }
 
   @override
-  void dispose() {
-    _numberController.dispose();
-    super.dispose();
+  Widget build(BuildContext context) {
+    return Row(
+      children: <Widget>[
+        Text(
+          Strings.chequeMode,
+          style: TextStyle(fontSize: 16, color: Colors.white),
+        ),
+        Switch(
+            value: result.chequeMode,
+            activeColor: Colors.white,
+            onChanged: (value) {
+              convertOutput(context, result);
+            }),
+      ],
+    );
   }
+}
 
-  setWordText() {
-    var content = _numberController.text;
-    setState(() {
-      if (content.length > 19)
-        resultWord = Strings.numberErrorOutput;
-      else {
-        resultWord = Conversion.parseWord(content);
-        resultWord = _chequeMode
-            ? ChequeUtils.toChequeFormat(resultWord)
-            : ChequeUtils.toNormalFormat(resultWord);
-      }
-    });
-  }
+class TitleHeader extends StatelessWidget {
+  const TitleHeader({
+    Key key,
+    @required this.title,
+    @required this.color,
+  }) : super(key: key);
 
-  Widget baseHeader(title, color) {
+  final String title;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       child: Text(
         title,
@@ -58,110 +144,39 @@ class _HomeSceneState extends State<HomeScene> {
       ),
     );
   }
+}
 
-  TextStyle inputTextStyle(color) {
-    return TextStyle(
-      fontWeight: FontWeight.w700,
-      color: color,
-      fontSize: 48,
-    );
-  }
-
+class NumberInputField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: Scaffold(
-        appBar: AppBar(
-          elevation: 0.0,
-          leading: IconButton(
-            color: Colors.white,
-            icon: Icon(Icons.help),
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => AboutScene()));
-            },
-          ),
-          actions: <Widget>[
-            Row(
-              children: <Widget>[
-                Text(
-                  Strings.chequeMode,
-                  style: TextStyle(fontSize: 16, color: Colors.white),
-                ),
-                Switch(
-                  value: _chequeMode,
-                  activeColor: Colors.white,
-                  onChanged: (bool value) {
-                    _chequeMode = value;
-                    setWordText();
-                  },
-                ),
-              ],
-            )
-          ],
-          backgroundColor: Colors.transparent,
-        ),
-        body: Container(
-            child: Column(
-          children: <Widget>[
-            Container(
-              height: (MediaQuery.of(context).size.height / 2) -
-                  AppBar().preferredSize.height,
-              width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.symmetric(horizontal: 48, vertical: 24),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  baseHeader(Strings.headerNumber, Colors.white),
-                  Expanded(
-                    child: Center(
-                      child: TextField(
-                        style: inputTextStyle(Colors.white),
-                        controller: _numberController,
-                        textAlign: TextAlign.center,
-                        maxLines: 2,
-                        inputFormatters: <TextInputFormatter>[
-                          WhitelistingTextInputFormatter.digitsOnly
-                        ],
-                        cursorColor: Colors.white,
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration.collapsed(hintText: null),
-                        cursorWidth: 5,
-                        autofocus: true,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              color: LightGreen,
-            ),
-            Expanded(
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.symmetric(horizontal: 32, vertical: 24),
-                child: Column(
-                  children: <Widget>[
-                    baseHeader(Strings.headerWord, LightGreen),
-                    Expanded(
-                      child: Center(
-                        child: AutoSizeText(
-                          resultWord,
-                          style: inputTextStyle(LightGreen),
-                          minFontSize: 16.0,
-                          maxLines: 5,
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.start,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                color: Colors.white,
-              ),
-            ),
-          ],
-        )),
+    return Center(
+      child: TextField(
+        style: inputTextStyle(Colors.white),
+        textInputAction: TextInputAction.done,
+        onChanged: (value) => setWordText(context, value),
+        textAlign: TextAlign.center,
+        maxLines: 2,
+        inputFormatters: <TextInputFormatter>[
+          WhitelistingTextInputFormatter.digitsOnly
+        ],
+        cursorColor: Colors.white,
+        keyboardType: TextInputType.number,
+        decoration: InputDecoration.collapsed(hintText: null),
+        cursorWidth: 5,
       ),
     );
   }
+
+  void setWordText(BuildContext context, String value) {
+    final wordBloc = BlocProvider.of<WordBloc>(context);
+    wordBloc.add(ParseInput(value));
+  }
+}
+
+TextStyle inputTextStyle(color) {
+  return TextStyle(
+    fontWeight: FontWeight.w700,
+    color: color,
+    fontSize: 48,
+  );
 }
